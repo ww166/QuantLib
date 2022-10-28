@@ -101,6 +101,8 @@ namespace QuantLib {
                                 Rate level,
                                 Size i) {
             data[i] = level;
+            if (i==1)
+                data[0] = level; // first point is updated as well
         }
         // upper bound for convergence loop
         // calibration is trivial, should be immediate
