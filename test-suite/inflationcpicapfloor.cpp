@@ -19,34 +19,30 @@
 */
 
 
-#include <ql/types.hpp>
-#include <ql/indexes/inflation/ukrpi.hpp>
-#include <ql/termstructures/bootstraphelper.hpp>
-#include <ql/time/calendars/unitedkingdom.hpp>
-#include <ql/time/daycounters/actualactual.hpp>
-#include <ql/time/daycounters/actual365fixed.hpp>
-#include <ql/termstructures/yield/zerocurve.hpp>
-#include <ql/indexes/ibor/gbplibor.hpp>
-#include <ql/termstructures/inflation/inflationhelpers.hpp>
-#include <ql/termstructures/inflation/piecewisezeroinflationcurve.hpp>
-#include <ql/cashflows/indexedcashflow.hpp>
-#include <ql/pricingengines/swap/discountingswapengine.hpp>
-#include <ql/instruments/zerocouponinflationswap.hpp>
-#include <ql/pricingengines/bond/discountingbondengine.hpp>
-#include <ql/math/interpolations/bilinearinterpolation.hpp>
-
-#include "utilities.hpp"
-
 #include "inflationcpicapfloor.hpp"
+#include "utilities.hpp"
 #include <ql/cashflows/cpicoupon.hpp>
 #include <ql/cashflows/cpicouponpricer.hpp>
-#include <ql/instruments/cpiswap.hpp>
+#include <ql/cashflows/indexedcashflow.hpp>
+#include <ql/indexes/ibor/gbplibor.hpp>
+#include <ql/indexes/inflation/ukrpi.hpp>
 #include <ql/instruments/bonds/cpibond.hpp>
 #include <ql/instruments/cpicapfloor.hpp>
-
+#include <ql/instruments/cpiswap.hpp>
+#include <ql/instruments/zerocouponinflationswap.hpp>
+#include <ql/math/interpolations/bilinearinterpolation.hpp>
+#include <ql/pricingengines/bond/discountingbondengine.hpp>
+#include <ql/pricingengines/swap/discountingswapengine.hpp>
+#include <ql/termstructures/bootstraphelper.hpp>
+#include <ql/termstructures/inflation/inflationhelpers.hpp>
+#include <ql/termstructures/inflation/piecewisezeroinflationcurve.hpp>
+#include <ql/termstructures/yield/zerocurve.hpp>
+#include <ql/time/calendars/unitedkingdom.hpp>
+#include <ql/time/daycounters/actual365fixed.hpp>
+#include <ql/time/daycounters/actualactual.hpp>
+#include <ql/types.hpp>
 #include <ql/experimental/inflation/cpicapfloortermpricesurface.hpp>
 #include <ql/experimental/inflation/cpicapfloorengines.hpp>
-
 #include <iostream>
 
 
@@ -264,7 +260,7 @@ namespace inflation_cpi_capfloor_test {
             ext::shared_ptr<PiecewiseZeroInflationCurve<Linear> > pCPIts(
                                 new PiecewiseZeroInflationCurve<Linear>(
                                     evaluationDate, calendar, dcZCIIS, observationLag,
-                                    ii->frequency(), baseZeroRate, helpers));
+                                    ii->frequency(), helpers));
             pCPIts->recalculate();
             cpiUK.linkTo(pCPIts);
 

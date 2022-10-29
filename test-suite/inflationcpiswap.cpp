@@ -239,11 +239,10 @@ namespace inflation_cpi_swap_test {
 
             // we can use historical or first ZCIIS for this
             // we know historical is WAY off market-implied, so use market implied flat.
-            Rate baseZeroRate = zciisData[0].rate/100.0;
             ext::shared_ptr<PiecewiseZeroInflationCurve<Linear> > pCPIts(
                                 new PiecewiseZeroInflationCurve<Linear>(
                                     evaluationDate, calendar, dcZCIIS, observationLag,
-                                    ii->frequency(), baseZeroRate, helpers));
+                                    ii->frequency(), helpers));
             pCPIts->recalculate();
             cpiTS = ext::dynamic_pointer_cast<ZeroInflationTermStructure>(pCPIts);
 

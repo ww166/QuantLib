@@ -153,11 +153,10 @@ namespace inflation_cpi_bond_test {
                 makeHelpers(zciisData, ii,
                             observationLag, calendar, convention, dayCounter, yTS);
 
-            Rate baseZeroRate = zciisData[0].rate/100.0;
             cpiTS.linkTo(ext::shared_ptr<ZeroInflationTermStructure>(
                   new PiecewiseZeroInflationCurve<Linear>(
                          evaluationDate, calendar, dayCounter, observationLag,
-                         ii->frequency(), baseZeroRate, helpers)));
+                         ii->frequency(), helpers)));
         }
 
         // teardown

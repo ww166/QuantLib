@@ -46,9 +46,10 @@ namespace QuantLib {
         static Date initialDate(const ZeroInflationTermStructure* t) {
             return inflationPeriod(t->referenceDate() - t->observationLag(), t->frequency()).first;
         }
-        // value at reference date
+
+        // initial value at reference date; will be overwritten by updateGuess(...)
         static Rate initialValue(const ZeroInflationTermStructure* t) {
-            return t->baseRate();
+            return detail::avgInflation;
         }
 
         // guesses

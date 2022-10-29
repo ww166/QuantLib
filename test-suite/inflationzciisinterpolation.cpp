@@ -157,11 +157,9 @@ namespace ZCIIS {
                            const ZeroCouponInflationSwapHelpers& helpers) {
         auto frequency = Monthly;
 
-        Rate baseZeroRate = zcData[0].rate / 100.0;
         ext::shared_ptr<PiecewiseZeroInflationCurve<Linear> > pZITS(
             new PiecewiseZeroInflationCurve<Linear>(setup.evaluationDate, setup.calendar, setup.dc,
-                                                    setup.observationLag, frequency,
-                                                    baseZeroRate, helpers));
+                                                    setup.observationLag, frequency, helpers));
         pZITS->recalculate();
 
         return pZITS;

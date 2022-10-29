@@ -56,6 +56,32 @@ namespace QuantLib {
             const DayCounter& dayCounter,
             const Period& lag,
             Frequency frequency,
+            std::vector<ext::shared_ptr<typename Traits::helper> > instruments,
+            Real accuracy = 1.0e-12,
+            const Interpolator& i = Interpolator())
+        : base_curve(referenceDate,
+                     calendar,
+                     dayCounter,
+                     lag,
+                     frequency,
+                     0.02,
+                     i),
+          instruments_(std::move(instruments)), accuracy_(accuracy) {
+            bootstrap_.setup(this);
+        }
+
+        /*! \deprecated Use the constructor without the baseZeroRate parameter.
+                        If you use traits different from ZeroInflationTraits,
+                        make sure they overwrite the first node.
+                        Deprecated in version 1.29.
+        */
+        QL_DEPRECATED
+        PiecewiseZeroInflationCurve(
+            const Date& referenceDate,
+            const Calendar& calendar,
+            const DayCounter& dayCounter,
+            const Period& lag,
+            Frequency frequency,
             Rate baseZeroRate,
             std::vector<ext::shared_ptr<typename Traits::helper> > instruments,
             Real accuracy = 1.0e-12,
@@ -72,7 +98,9 @@ namespace QuantLib {
         }
 
         /*! \deprecated Use the constructor without the
-                        indexIsInterpolated parameter.
+                        baseZeroRate and indexIsInterpolated parameters.
+                        If you use traits different from ZeroInflationTraits,
+                        make sure they overwrite the first node.
                         Deprecated in version 1.25.
         */
         QL_DEPRECATED
