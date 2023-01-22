@@ -41,7 +41,9 @@ namespace QuantLib {
                                        PricingEngine::arguments* args) const {
         BarrierOption::setupArguments(args);
 
+        QL_DEPRECATED_DISABLE_WARNING
         auto* arguments = dynamic_cast<DividendBarrierOption::arguments*>(args);
+        QL_DEPRECATED_ENABLE_WARNING
         QL_REQUIRE(arguments != nullptr, "wrong engine type");
 
         arguments->cashFlow = cashFlow_;
